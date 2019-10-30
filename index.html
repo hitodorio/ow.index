@@ -15,8 +15,7 @@
     <!-- add javascripts -->
     <script src="jquery.js"></script>
       <script data-require="angular.js@1.4.2" data-semver="1.4.2" src="ang142.js"></script>
-      <script src="ang142route.js"></script>
-    <script src="content/index.js"></script>
+          <script src="content/index.js"></script>
     
     
 	      <link href="bootstrap3.css" rel="stylesheet" data-semver="3.3.4" data-require="bootstrap-css@3.3.4" />
@@ -38,9 +37,8 @@
             <nav>
                 <ul>
                  <li><a id="indexBtn" href="http://index.ow/" ng-class="{activeSmall:part == 'index'}" >inDEX</a></li>
-                     <li><a id="searchBtn" href="http://search.ow/#!/search" ng-class="{activeSmall:part == 'search'}" >search</a></li>
-                     <li><a id="dcdnBtn" href="http://dcdn.ow/#!/search" ng-class="{activeSmall:part == 'dcdn'}" >dcdn</a></li>
-                    <li><a id="aboutBtn" href="http://n.ow/#!/about" ng-class="{activeSmall:part == 'about'}">about</a></li>
+                     <li><a id="searchBtn" href="http://search.ow/" ng-class="{activeSmall:part == 'search'}" >search</a></li>
+                    <li><a id="aboutBtn" href="http://n.ow/" ng-class="{activeSmall:part == 'about'}">about</a></li>
                   
                 </ul>
             </nav>
@@ -51,7 +49,66 @@
 
     <!-- main content -->
     <div style="position:relative">
-        <div style="width:100%" ng-view ng-animate="{enter: 'view-enter', leave: 'view-leave'}"></div>
+       
+<div class="ow">
+	 <div ng-controller="myCtl" ng-app="app">
+      
+        <table ng-table="tableParams" class="table table-condensed table-bordered table-hover">
+            <colgroup>
+              <col width="40%" />
+              <col width="30%" />
+
+              <col width="30%" />
+            </colgroup>
+            <tr class="ng-table-group" ng-repeat-start="group in $groups">
+              <td colspan="6">
+	              
+	               <a href="" ng-click="group.$hideRows = !group.$hideRows">
+              <span class="glyphicon" ng-class="{ 'glyphicon-chevron-right': group.$hideRows, 'glyphicon-chevron-down': !group.$hideRows }"></span>
+              <strong>{{ group.value }}</strong>
+            </a>              </td>
+            </tr>
+            <tr ng-hide="group.$hideRows" ng-repeat="DomainOW in group.data" ng-repeat-end>
+	            
+
+                <td title="'Domain'" filter="{ D: 'text'}" sortable="'D'" data-title="'Domain'" groupable="'D'"><h3>{{ DomainOW.D }}<span ng-if="DomainOW.P=='1'"> <a ng-href="http://{{ DomainOW.D	 }}/" target="blank">>></a></span></h3>
+	                <br>
+	                <div class="row">
+		                
+					<div class="col-sm-2">Date</div>  <div class="col-sm-10">{{DomainOW.T*1000  | date: 'yyyy-MM-dd HH:mm'}}					</div>
+					<div class="col-sm-2">Hash</div>  <div class="col-sm-10"><a ng-href="https://etherscan.io/tx/{{ DomainOW.H	 }}" target="_blank">{{ DomainOW.H	 }}</a></div>
+					<div class="col-sm-2">Method</div>  <div class="col-sm-10">{{ DomainOW.M	 }}</div>
+					<div class="col-sm-2">Block</div>  <div class="col-sm-10">{{ DomainOW.B	 }}</div>
+					<div class="col-sm-12" ng-if="DomainOW.P=='1'" style="padding: 0">
+						<div class="col-sm-2">published</div>  <div class="col-sm-10"><a ng-href="http://{{ DomainOW.D	 }}/">{{ DomainOW.D	 }}</a></div>
+					</div>  
+					<div class="col-sm-2" style="white-space: pre-line;">Input</div>  <div class="col-sm-10">{{ DomainOW.I	 }}</div>
+	                </div>
+	                
+                </td>
+                
+                 <td title="'Method'" filter="{ M: 'select'}" filter-data="SelectM" sortable="'M'" data-title="'Method'" groupable="'M'">
+        {{DomainOW.M}}</td>
+
+
+        
+        
+      <td title="'Owner'" filter="{ F: 'text'}"  sortable="'F'" data-title="'Owner'" groupable="'F'">
+        {{DomainOW.F}}</td>   
+
+   <td title="'Date'" sortable="'YMD'" data-title="'Date'" groupable="'YMD'">
+        
+        
+        </td>   
+             
+
+ 
+                
+            </tr>
+        </table>
+        
+    </div>
+</div>
     </div>
 
 </body>
